@@ -6,6 +6,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GoogleTokenStrategy = require('passport-google-plus-token');
 const FacebookTokenStrategy = require('passport-facebook-token');
 const { ExtractJwt } = require('passport-jwt');
+
+const config = require('config');
 const User = require('../models/User');
 const CustomError = require('../helpers/customError');
 
@@ -14,7 +16,7 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-      secretOrKey: 'superspecialawesome',
+      secretOrKey: config.get('jwt.secret'),
     },
     async (payload, done) => {
       try {
@@ -33,30 +35,11 @@ passport.use(
 );
 
 // Google Strategy
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID:
-//         '258855009640-uih95oqd1nslq65amsjq5a2grn6kselv.apps.googleusercontent.com',
-//       clientSecret: 'Z5-QCKMf4PYYNDQ6t4IJQbee',
-//       // callbackURL: '/users/auth/google/redirect',
-//     },
-//     async (accessToken, refreshToken, profile, callback) => {
-//       console.log('TCL: accessToken', accessToken);
-//       console.log('TCL: profile', profile);
-//       console.log('TCL: refreshToken', refreshToken);
-//       callback(null, profile);
-//     }
-//   )
-// );
-
-// Google Strategy
 passport.use(
   new GoogleTokenStrategy(
     {
-      clientID:
-        '258855009640-uih95oqd1nslq65amsjq5a2grn6kselv.apps.googleusercontent.com',
-      clientSecret: 'Z5-QCKMf4PYYNDQ6t4IJQbee',
+      clientID: config.get('keys.google.id'),
+      clientSecret: config.get('keys.google.secret'),
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
@@ -97,8 +80,8 @@ passport.use(
 passport.use(
   new FacebookTokenStrategy(
     {
-      clientID: '2043782379061582',
-      clientSecret: 'd3422279db3c902273ba0423743ae286',
+      clientID: config.get('keys.facebook.id'),
+      clientSecret: config.get('keys.facebook.secret'),
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

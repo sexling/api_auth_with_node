@@ -1,5 +1,18 @@
 {
   "db": {
     "prod": "mongodb+srv://caleb123:caleb123@devconnector-ozko3.mongodb.net/test?retryWrites=true&w=majority"
+  },
+  "keys": {
+    "google": {
+      "id": "258855009640-uih95oqd1nslq65amsjq5a2grn6kselv.apps.googleusercontent.com",
+      "secret": "Z5-QCKMf4PYYNDQ6t4IJQbee"
+    },
+    "facebook": {
+      "id": "2043782379061582",
+      "secret": "d3422279db3c902273ba0423743ae286"
+    }
+  },
+  "jwt": {
+    "secret": "superspecialawesome"
   }
 }
